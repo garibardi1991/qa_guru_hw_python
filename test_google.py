@@ -1,7 +1,6 @@
 from selene import browser, have
 
 
-
 def test_search_goggle():
     browser.open('https://google.com')
     browser.element('[name=q]').type('yashaka/selene').press_enter()
@@ -16,4 +15,3 @@ def test_no_search_goggle():
     browser.element('#botstuff').should(have.text('ничего не найдено.'))
 
     browser.quit()
-
