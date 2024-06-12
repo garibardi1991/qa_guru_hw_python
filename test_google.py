@@ -3,7 +3,7 @@ from selene import browser, have
 
 
 @pytest.fixture(autouse=True)
-def browser_url(browser_driver):
+def browser_url():
     browser.config.base_url = 'https://google.com'
 
 
