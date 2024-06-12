@@ -1,10 +1,4 @@
-import pytest
 from selene import browser, have
-
-
-@pytest.fixture(autouse=True)
-def browser_url():
-    browser.config.base_url = 'https://google.com'
 
 
 def test_search_goggle():
