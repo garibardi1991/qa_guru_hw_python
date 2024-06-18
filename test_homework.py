@@ -8,6 +8,7 @@ def test_greeting():
     output = f"Привет, {name}! Тебе {age} лет."
 
     assert output == "Привет, Анна! Тебе 25 лет."
+    print(output)
 
 
 def test_rectangle():
@@ -24,19 +25,21 @@ def test_rectangle():
 def test_circle():
     r = 23
 
-    area = math.pi * r * r
+    area = math.pi * r**2
     assert area == 1661.9025137490005
+    print(area)
 
     length = 2 * math.pi * r
     assert length == 144.51326206513048
+    print(length)
 
 
 def test_random_list():
-    l = [1, 46, 60, 79, 45, 67, 25, 8, 98, 44]
-    l.sort()
+    random_list = [random.randint(1, 100) for _ in range(10)]
+    random_list.sort()
 
-    assert len(l) == 10
-    assert all(l[i] <= l[i + 1] for i in range(len(l) - 1))
+    assert len(random_list) == 10
+    assert all(random_list[i] <= random_list[i + 1] for i in range(len(random_list) - 1))
 
 
 def test_unique_elements():
