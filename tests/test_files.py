@@ -27,16 +27,22 @@ def test_xlsx_file():
 
 def test_csv():
     with zipfile.ZipFile(ZIP_DIR, 'r') as zip_file:
-        with zip_file.open("import_empl.csv") as csv_file:
+        with zip_file.open("file.csv") as csv_file:
             content = csv_file.read().decode(
                 'utf-8-sig')
             csvreader = list(csv.reader(content.splitlines()))
             second_row = csvreader[1]  # получаем вторую строку
-            result_list = second_row[0].split(',')
-            namePostback = "тетапвар"
-            IDPostback = 'CS4164U'
+            result_list = second_row[0].split(';')
+            Postback = "OU001"
+            IDPostback = 'Иванова'
 
-            assert result_list[2] == namePostback, f"Название постбэка: {namePostback
+            # if len(result_list) >= 3:
+            #     assert result_list[
+            #                2] == Postback, f"Название постбэка: {Postback} присутствует в таблице {Postback}"
+            # else:
+            #     print("Список result_list содержит меньше 3 элементов")
+
+            assert result_list[2] == Postback, f"Название постбэка: {Postback
             } присутствует в таблице {result_list}"  # проверка значения элемента в первом столбце второй строки
             assert result_list[3] == IDPostback, f"ID по: {IDPostback
             } присутствует в таблице {IDPostback}"  # проверка значения элемента во втором столбце второй строки
