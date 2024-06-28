@@ -31,18 +31,12 @@ def test_csv():
             content = csv_file.read().decode(
                 'utf-8-sig')
             csvreader = list(csv.reader(content.splitlines()))
-            second_row = csvreader[1]  # получаем вторую строку
-            result_list = second_row[0].split(';')
-            Postback = "OU001"
-            IDPostback = 'Иванова'
+            second_row = csvreader[1]
+            result_list = second_row
+            Postback = "ready"
+            IDPostback = '16'
 
-            # if len(result_list) >= 3:
-            #     assert result_list[
-            #                2] == Postback, f"Название постбэка: {Postback} присутствует в таблице {Postback}"
-            # else:
-            #     print("Список result_list содержит меньше 3 элементов")
-
-            assert result_list[2] == Postback, f"Название постбэка: {Postback
-            } присутствует в таблице {result_list}"  # проверка значения элемента в первом столбце второй строки
-            assert result_list[3] == IDPostback, f"ID по: {IDPostback
-            } присутствует в таблице {IDPostback}"  # проверка значения элемента во втором столбце второй строки
+            assert result_list[0] == Postback, f"Название постбэка: {Postback
+            } присутствует в таблице {result_list}"
+            assert result_list[1] == IDPostback, f"ID по: {IDPostback
+            } присутствует в таблице {IDPostback}"
