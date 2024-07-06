@@ -2,7 +2,7 @@ from selene import browser, have
 import os
 
 
-def test_automation_practice_form():
+def test_student_registration_form():
     browser.open('/automation-practice-form')
     browser.element('.practice-form-wrapper').should(have.text('Student Registration Form'))
 
