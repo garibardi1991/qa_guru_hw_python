@@ -13,6 +13,3 @@ def browser_driver():
     browser.config.driver_options = driver_options
     yield
     browser.quit()
-
-
-
