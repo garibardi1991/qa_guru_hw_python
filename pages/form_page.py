@@ -5,7 +5,7 @@ from selene import browser, have, command
 
 class RegistrationForm:
     def open(self):
-        browser.open('/automation-practice-form')
+        browser.open('https://demoqa.com/automation-practice-form/')
         browser.element('.practice-form-wrapper').should(have.text('Student Registration Form'))
 
     def type_first_name(self, value):

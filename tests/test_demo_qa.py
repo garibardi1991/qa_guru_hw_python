@@ -1,15 +1,21 @@
 import allure
 from pages.form_page import RegistrationForm
+from allure_commons.types import Severity
 
 
-@allure.title("Successful fill form")
+@allure.tag("web")
+@allure.severity(Severity.NORMAL)
+@allure.label("owner", "Trubikhov")
+@allure.feature("Автотест с Allure DemoQA")
+@allure.story("Тестирование формы регистрации DEMOQA")
+@allure.link("https://demoqa.com/", name="Testing")
 def test_student_registration_form():
 
-    with allure.step("Open registrations form"):
+    with allure.step("Открытие регистрационной формы"):
         registration_form = RegistrationForm()
         registration_form.open()
 
-    with allure.step("Fill form"):
+    with allure.step("Заполнение полей"):
         registration_form.type_first_name('Igor')
         registration_form.type_last_name('Trubikhov')
         registration_form.type_email('garibardi@mail.ru')
@@ -24,7 +30,7 @@ def test_student_registration_form():
         registration_form.type_city("Karnal")
         registration_form.press_submit()
 
-    with allure.step("Check form results"):
+    with allure.step("Проверка результата"):
         registration_form.should_text('Thanks for submitting the form')
         registration_form.should_exact_text(
             'Igor Trubikhov',
