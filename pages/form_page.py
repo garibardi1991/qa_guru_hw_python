@@ -5,7 +5,8 @@ from selene import browser, have, command
 
 class RegistrationForm:
     def open(self):
-        browser.open('https://demoqa.com/automation-practice-form/')
+        browser.open('/automation-practice-form/')
+        browser.execute_script('document.querySelector(".body-height").style.transform = "scale(.75)"')
         browser.element('.practice-form-wrapper').should(have.text('Student Registration Form'))
 
     def type_first_name(self, value):
@@ -35,7 +36,7 @@ class RegistrationForm:
         browser.element('#subjectsInput').type(subjects).press_enter()
 
     def click_hobbies(self):
-        browser.all('.custom-checkbox').element_by(have.exact_text('Reading')).click()
+        browser.element('[for=hobbies-checkbox-2]').perform(command.js.scroll_into_view).click()
 
     def select_picture(self, file):
         browser.element('#uploadPicture').send_keys(str(Path(__file__).parent.parent.joinpath(
