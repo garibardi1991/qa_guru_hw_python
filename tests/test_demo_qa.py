@@ -9,7 +9,6 @@ from allure_commons.types import Severity
 @allure.feature("Автотест с Allure DemoQA")
 @allure.story("Тестирование формы регистрации DEMOQA")
 @allure.link("https://demoqa.com/", name="Testing")
-@allure.title("Тестирование заполнения формы регистриации")
 def test_student_registration_form(setup_browser):
 
     with allure.step("Открытие регистрационной формы"):
