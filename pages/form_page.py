@@ -39,7 +39,7 @@ class RegistrationForm:
         browser.element('[for=hobbies-checkbox-2]').perform(command.js.scroll_into_view).click()
 
     def select_picture(self, file):
-        browser.element('#uploadPicture').send_keys(str(Path(__file__).parent.parent.joinpath(
+        browser.element('[type="file"]').send_keys(str(Path(__file__).parent.parent.joinpath(
             f'resources/{file}')))
 
     def type_address(self, address):
