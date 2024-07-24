@@ -24,23 +24,21 @@ def test_dark_theme_by_time_and_user_choice():
     # TODO переключите темную тему в зависимости от времени суток,
     #  но учтите что темная тема может быть включена вручную
 
-
-def is_dark_theme_two(current_time=time(hour=16), dark_theme_enabled_by_user=True):
-    if dark_theme_enabled_by_user is None:
-        if current_time.hour >= 22 or current_time.hour < 6:
-            return True
+    def is_dark_theme_two(current_time=time(hour=16), dark_theme_enabled_by_user=True):
+        if dark_theme_enabled_by_user is None:
+            if current_time.hour >= 22 or current_time.hour < 6:
+                return True
+            else:
+                return False
         else:
-            return False
-    else:
-        return dark_theme_enabled_by_user
+            return dark_theme_enabled_by_user
 
-
-assert is_dark_theme_two(current_time=time(hour=16), dark_theme_enabled_by_user=True) is True
-assert is_dark_theme_two(current_time=time(hour=16), dark_theme_enabled_by_user=False) is False
-assert is_dark_theme_two(current_time=time(hour=16), dark_theme_enabled_by_user=None) is False
-assert is_dark_theme_two(current_time=time(hour=23), dark_theme_enabled_by_user=None) is True
-assert is_dark_theme_two(current_time=time(hour=22), dark_theme_enabled_by_user=None) is True
-assert is_dark_theme_two(current_time=time(hour=6), dark_theme_enabled_by_user=None) is False
+    assert is_dark_theme_two(current_time=time(hour=16), dark_theme_enabled_by_user=True) is True
+    assert is_dark_theme_two(current_time=time(hour=16), dark_theme_enabled_by_user=False) is False
+    assert is_dark_theme_two(current_time=time(hour=16), dark_theme_enabled_by_user=None) is False
+    assert is_dark_theme_two(current_time=time(hour=23), dark_theme_enabled_by_user=None) is True
+    assert is_dark_theme_two(current_time=time(hour=22), dark_theme_enabled_by_user=None) is True
+    assert is_dark_theme_two(current_time=time(hour=6), dark_theme_enabled_by_user=None) is False
 
 
 def test_find_suitable_user():
