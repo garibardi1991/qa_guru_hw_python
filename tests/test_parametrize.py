@@ -3,11 +3,9 @@ from selene import browser, be
 
 desktop_only = pytest.mark.parametrize("browser_management_desktop",
                                        [(1280, 720), (1920, 1080)],
-                                       indirect=True,
                                        ids=['WEB_1280', 'WEB_1920'])
 mobile_only = pytest.mark.parametrize("browser_management_mobile",
                                       [(414, 896)],
-                                      indirect=True,
                                       ids=['Mobile_414'])
 
 
