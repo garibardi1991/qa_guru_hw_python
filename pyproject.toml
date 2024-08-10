@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "hw-16"
+version = "0.1"
+description = "poetry-HW-16"
+authors = ["igor trubikhov <trubikhov.i@leads.su>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+selene = "2.0.0rc9"
+pytest = "8.3.2"
+
+
+[tool.poetry.group.dev.dependencies]
+pylint = "3.2.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
