@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "hw_mobile-tests"
+version = "0.1.0"
+description = ""
+authors = ["Igor Trubikhov <garibardi@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+selene = "2.0.0rc9"
+requests = "^2.32.3"
+pytest = "^8.3.2"
+allure-pytest = "^2.13.5"
+appium-python-client = "4.0.0"
+poetry-plugin-dotenv = "^2.2.3"
+python-dotenv = "^1.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+
+[tool.pytest.ini_options]
+addopts = "--clean-alluredir --alluredir=allure-results"
