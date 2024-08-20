@@ -1,8 +1,12 @@
+import allure
 from allure_commons._allure import step
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import browser, have
 
-
+@allure.tag("mobile")
+@allure.label("owner", "Игорь Трубихов")
+@allure.feature("Википедия_примеры тесов для мобильных устройств")
+@allure.story("Поиск на сайте")
 def test_search():
     with step('Type search'):
         browser.element((AppiumBy.ACCESSIBILITY_ID, "Search Wikipedia")).click()
@@ -13,7 +17,10 @@ def test_search():
         results.should(have.size_greater_than(0))
         results.first.should(have.text('Appium'))
 
-
+@allure.tag("mobile")
+@allure.label("owner", "Игорь Трубихов")
+@allure.feature("Википедия_примеры тесов для мобильных устройств")
+@allure.story("Открытие результата поиска")
 def test_open_first_article():
     with step('Type search "Java"'):
         browser.element((AppiumBy.ACCESSIBILITY_ID, "Search Wikipedia")).click()
