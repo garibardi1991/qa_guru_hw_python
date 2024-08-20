@@ -18,7 +18,7 @@ def mobile_management():
         "platformVersion": "9.0",
         "deviceName": "Google Pixel 3",
 
-        "app": os.getenv("APP_ID"),
+        "app": "bs://sample.app",
 
         'bstack:options': {
             "projectName": "First Python project",
