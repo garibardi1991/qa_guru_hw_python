@@ -3,6 +3,7 @@ from allure_commons._allure import step
 from appium.webdriver.common.appiumby import AppiumBy
 from selene import browser, have
 
+
 @allure.tag("mobile")
 @allure.label("owner", "Игорь Трубихов")
 @allure.feature("Википедия_примеры тесов для мобильных устройств")
@@ -16,6 +17,7 @@ def test_search():
         results = browser.all((AppiumBy.ID, 'org.wikipedia.alpha:id/page_list_item_title'))
         results.should(have.size_greater_than(0))
         results.first.should(have.text('Appium'))
+
 
 @allure.tag("mobile")
 @allure.label("owner", "Игорь Трубихов")

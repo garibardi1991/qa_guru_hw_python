@@ -12,7 +12,6 @@ requests = "^2.32.3"
 pytest = "^8.3.2"
 allure-pytest = "^2.13.5"
 appium-python-client = "4.0.0"
-poetry-plugin-dotenv = "^2.2.3"
 python-dotenv = "^1.0.0"
 
 

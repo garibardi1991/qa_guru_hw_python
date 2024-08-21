@@ -8,11 +8,11 @@ import os
 from appium import webdriver
 
 
-@pytest.fixture(scope = 'function', autouse = True)
+@pytest.fixture(scope='function', autouse=True)
 def mobile_management():
     load_dotenv()
     login = os.getenv('USER_NAME')
-    accesskey = os.getenv('ACCESS_KEY')
+    access_key = os.getenv('ACCESS_KEY')
     options = UiAutomator2Options().load_capabilities({
         "platformName": "android",
         "platformVersion": "9.0",
@@ -26,16 +26,14 @@ def mobile_management():
             "sessionName": "BStack first_test",
 
             "userName": login,
-            "accessKey": accesskey
+            "accessKey": access_key
         }
     })
 
     browser.config.driver = webdriver.Remote("http://hub.browserstack.com/wd/hub",
-                                             options = options)
+                                             options=options)
 
     browser.config.timeout = float(os.getenv('timeout', '10.0'))
-
-    session_id = browser.driver.session_id
 
     yield
 
@@ -45,4 +43,4 @@ def mobile_management():
 
     browser.quit()
 
-    attach.add_video(session_id, login, accesskey)
+    attach.add_video(session_id, login, access_key)
