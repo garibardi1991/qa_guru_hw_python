@@ -1,46 +1,49 @@
-import pytest
-from dotenv import load_dotenv
-
-from utils import attach
-from appium.options.android import UiAutomator2Options
-from selene import browser
 import os
+
+import pytest
 from appium import webdriver
+from dotenv import load_dotenv
+from selene import browser
+
+import config
+from utils import attach
 
 
-@pytest.fixture(scope='function', autouse=True)
-def mobile_management():
-    load_dotenv()
-    login = os.getenv('USER_NAME')
-    access_key = os.getenv('ACCESS_KEY')
-    options = UiAutomator2Options().load_capabilities({
-        "platformName": "android",
-        "platformVersion": "9.0",
-        "deviceName": "Google Pixel 3",
+def pytest_addoption(parser):
+    parser.addoption(
+        "--context",
+        default = "bstack",
+        help = "Specify the test context"
+    )
 
-        "app": "bs://sample.app",
 
-        'bstack:options': {
-            "projectName": "First Python project",
-            "buildName": "browserstack-build-1",
-            "sessionName": "BStack first_test",
+def pytest_configure(config):
+    context = config.getoption("--context")
+    env_file_path = f".env.{context}"
 
-            "userName": login,
-            "accessKey": access_key
-        }
-    })
+    load_dotenv(dotenv_path = env_file_path)
 
-    browser.config.driver = webdriver.Remote("http://hub.browserstack.com/wd/hub",
-                                             options=options)
 
-    browser.config.timeout = float(os.getenv('timeout', '10.0'))
+@pytest.fixture
+def context(request):
+    return request.config.getoption("--context")
+
+
+@pytest.fixture(scope = 'function', autouse = True)
+def mobile_management(context):
+    options = config.to_driver_options(context = context)
+
+    browser.config.driver = webdriver.Remote(options.get_capability('remote_url'), options = options)
+    browser.config.timeout = 10.0
 
     yield
 
-    attach.add_screenshot(browser)
-    attach.add_xml(browser)
+    attach.add_screenshot()
+    attach.add_xml()
     session_id = browser.driver.session_id
 
     browser.quit()
 
-    attach.add_video(session_id, login, access_key)
+    if context == 'bstack':
+        load_dotenv()
+        attach.add_video(session_id, os.getenv('BROWSERSTACK_USER'), os.getenv('BROWSERSTACK_KEY'))

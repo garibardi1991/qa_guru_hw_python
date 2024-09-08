@@ -1,37 +1,83 @@
 import allure
 from allure_commons._allure import step
 from appium.webdriver.common.appiumby import AppiumBy
-from selene import browser, have
+from selene import browser, have, be
 
 
-@allure.tag("mobile")
-@allure.label("owner", "Игорь Трубихов")
-@allure.feature("Википедия_примеры тесов для мобильных устройств")
-@allure.story("Поиск на сайте")
-def test_search():
-    with step('Type search'):
-        browser.element((AppiumBy.ACCESSIBILITY_ID, "Search Wikipedia")).click()
-        browser.element((AppiumBy.ID, "org.wikipedia.alpha:id/search_src_text")).type('Appium')
+@allure.tag("мобилка")
+@allure.label("тестировщик", "Трубихов Игорь")
+@allure.feature("Wikipedia app_Mobile tests examples")
+@allure.story("'Explore' screen check ")
+def test_explore_screen_wikipedia():
+    with step('Skip onboarding screen'):
+        browser.element((AppiumBy.ID, "org.wikipedia.alpha:id/fragment_onboarding_skip_button")).click()
 
-    with step('Verify content found'):
-        results = browser.all((AppiumBy.ID, 'org.wikipedia.alpha:id/page_list_item_title'))
-        results.should(have.size_greater_than(0))
-        results.first.should(have.text('Appium'))
+    with step('Verify welcome screen'):
+        results = browser.all((AppiumBy.ID, 'org.wikipedia.alpha:id/view_announcement_text'))
+        results.should(be.present)
+
+    with step('Press Saved button on bottom menu'):
+        browser.all((AppiumBy.ID, "org.wikipedia.alpha:id/navigation_bar_item_icon_view")).element(1).click()
+
+    with step('Verify Saved screen'):
+        results = browser.all((AppiumBy.CLASS_NAME, 'android.widget.TextView'))
+        results.should(be.present)
+        results.first.should(have.text('Saved'))
+
+    with step('Press Search button on bottom menu'):
+        browser.all((AppiumBy.ID, "org.wikipedia.alpha:id/navigation_bar_item_icon_view")).element(2).click()
+
+    with step('Verify Search screen'):
+        results = browser.all((AppiumBy.CLASS_NAME, 'android.widget.TextView'))
+        results.should(be.present)
+        results.first.should(have.text('Search'))
+
+    with step('Press Edits button on bottom menu'):
+        browser.all((AppiumBy.ID, "org.wikipedia.alpha:id/navigation_bar_item_icon_view")).element(3).click()
+
+    with step('Verify Edits screen'):
+        results = browser.all((AppiumBy.CLASS_NAME, 'android.widget.TextView'))
+        results.should(be.present)
+        results.first.should(have.text('Edits'))
 
 
-@allure.tag("mobile")
-@allure.label("owner", "Игорь Трубихов")
-@allure.feature("Википедия_примеры тесов для мобильных устройств")
-@allure.story("Открытие результата поиска")
-def test_open_first_article():
-    with step('Type search "Java"'):
-        browser.element((AppiumBy.ACCESSIBILITY_ID, "Search Wikipedia")).click()
-        browser.element((AppiumBy.ID, "org.wikipedia.alpha:id/search_src_text")).type('Java')
+@allure.tag("мобилка")
+@allure.label("тестировщик", "Трубихов Игорь")
+@allure.feature("Wikipedia app_Mobile tests examples")
+@allure.story("Onboarding screens check")
+def test_getting_started():
+    with step('Open welcome screen and verify welcome screen'):
+        browser.element((AppiumBy.ID, 'org.wikipedia.alpha:id/primaryTextView')).should(have.text('The Free '
+                                                                                                  'Encyclopedia\n…in '
+                                                                                                  'over 300 languages'))
 
-    with step('Verify content found.'):
-        results = browser.all((AppiumBy.ID, 'org.wikipedia.alpha:id/page_list_item_title'))
-        results.should(have.size_greater_than(0))
-        results.first.should(have.text('Java'))
+    with step('Tap "Continue" button'):
+        browser.element((AppiumBy.ID, 'org.wikipedia.alpha:id/fragment_onboarding_forward_button')).click()
 
-    with step('Click the first article.'):
-        browser.all((AppiumBy.ID, 'org.wikipedia.alpha:id/page_list_item_title')).first.click()
+    with step('Verify "New ways to explore" screen'):
+        browser.element((AppiumBy.ID, 'org.wikipedia.alpha:id/primaryTextView')).should(have.text('New ways to '
+                                                                                                  'explore'))
+        browser.element((AppiumBy.ID, 'org.wikipedia.alpha:id/secondaryTextView')).should(have.text(
+            'Dive down the Wikipedia rabbit hole with a constantly updating Explore feed. \nCustomize the feed to '
+            'your interests – whether it’s learning about historical events On this day, or rolling the dice with '
+            'Random.'))
+
+    with step('Tap "Continue" button'):
+        browser.element((AppiumBy.ID, 'org.wikipedia.alpha:id/fragment_onboarding_forward_button')).click()
+
+    with step('Verify "Reading list with sync" screen'):
+        browser.element((AppiumBy.ID, 'org.wikipedia.alpha:id/primaryTextView')).should(have.text('Reading lists '
+                                                                                                  'with sync'))
+        browser.element((AppiumBy.ID, 'org.wikipedia.alpha:id/secondaryTextView')).should(have.text(
+            'You can make reading lists from articles you want to read later, even when you’re offline. \nLogin to '
+            'your Wikipedia account to sync your reading lists. Join Wikipedia'))
+
+    with step('Tap "Continue" button'):
+        browser.element((AppiumBy.ID, 'org.wikipedia.alpha:id/fragment_onboarding_forward_button')).click()
+
+    with step('Verify "Data & Privacy" screen'):
+        browser.element((AppiumBy.ID, 'org.wikipedia.alpha:id/primaryTextView')).should(have.text('Data & Privacy'))
+        browser.element((AppiumBy.ID, 'org.wikipedia.alpha:id/secondaryTextView')).should(have.text(
+            'We believe that you should not have to provide personal information to participate in the free knowledge '
+            'movement. Usage data collected for this app is anonymous. Learn more about our privacy policy and terms '
+            'of use.'))
